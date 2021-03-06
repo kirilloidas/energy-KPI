@@ -1,11 +1,11 @@
 import React from 'react'
 import './CheckOptions.scss'
 
-const CheckOptions = (text) => {
+const CheckOptions = ({onChange = () => {}, text}) => {
     return (
         <label className="checkbox">
-            <input type="checkbox" />
-            <div className="checkbox__text">{text.text}</div>
+            <input type="checkbox" onChange={(e) => {onChange(e.target.checked)}}/>
+            <div className="checkbox__text">{text}</div>
         </label>
     )
 }

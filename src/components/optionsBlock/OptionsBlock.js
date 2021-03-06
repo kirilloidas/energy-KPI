@@ -3,10 +3,10 @@ import './OptionsBlock.scss'
 import CheckMode from '../checkbox/CheckMode'
 import CheckOptions from '../checkbox/CheckOptions'
 import InputInterval from '../input/InputInterval'
-import {setIntervalObj} from '../../redux/actions/checkBoxParam'
+import {setIntervalObj, setCheckBoxObj} from '../../redux/actions/checkBoxParam'
 import { connect } from 'react-redux'
 
-const OptionsBlock = ({isDaily, setIntervalObj}) => {
+const OptionsBlock = ({isDaily, setIntervalObj, setCheckBoxObj, checkBoxObj}) => {
     const [startDay, setStartDay] = useState();
     const [startMonth, setStartMonth] = useState();
     const [startYear, setStartYear] = useState();
@@ -15,15 +15,22 @@ const OptionsBlock = ({isDaily, setIntervalObj}) => {
     const [endMonth, setEndMonth] = useState();
     const [endYear, setEndYear] = useState();
     const [endHour, setEndHour] = useState();
+    let obj = new Object();
 
     useEffect(() => {
         let obj = {
             startTime: new Date(startYear, startMonth, startDay, startHour || 0).getTime(),
             endTime: new Date(endYear, endMonth, endDay, endHour || 0).getTime(),
         }
-        console.log(obj)
         setIntervalObj(obj)
+        // console.log(checkBoxObj)
     }, [startDay, startMonth, startYear, startHour, endDay, endHour, endMonth, endYear])
+
+    useEffect(() =>{
+        for(let i = 0; i < checkboxArr.length; i++) {
+            obj[i] = false
+        }
+    }, [])
     
     const checkboxArr = [
         'Об`єм (маса) каналу витрати 1',
@@ -38,7 +45,14 @@ const OptionsBlock = ({isDaily, setIntervalObj}) => {
         'Температура всередині корпусу'
     ];
 
-    console.log(startDay,startMonth,startYear)
+    
+
+    const addCheckBoxObj = (value, index) => {
+        obj[index] = value;
+        console.log(obj)
+        setCheckBoxObj(obj)
+    }
+
 
 
     return (
@@ -46,7 +60,7 @@ const OptionsBlock = ({isDaily, setIntervalObj}) => {
             <legend>Параметри</legend>
             <CheckMode />
             {checkboxArr.map((content, index) => (
-                <CheckOptions key={index} text={content} />
+                <CheckOptions key={index} text={content} onChange={(e) => addCheckBoxObj(e, index)} />
             ))}
             <h3>Початкова дата</h3>
             <div className="start_date">
@@ -69,14 +83,15 @@ const OptionsBlock = ({isDaily, setIntervalObj}) => {
 }
 
 const mapStateToProps = state => {
-    // console.log(state.checkBoxReducer.isDaily)
     return {
-        isDaily: state.checkBoxReducer.isDaily
+        isDaily: state.checkBoxReducer.isDaily,
+        checkBoxObj: state.checkBoxReducer.checkBoxObj
     }
 }
 
 const mapDispatchToProps = {
-    setIntervalObj
+    setIntervalObj,
+    setCheckBoxObj
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OptionsBlock)
