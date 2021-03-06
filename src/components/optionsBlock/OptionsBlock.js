@@ -3,10 +3,10 @@ import './OptionsBlock.scss'
 import CheckMode from '../checkbox/CheckMode'
 import CheckOptions from '../checkbox/CheckOptions'
 import InputInterval from '../input/InputInterval'
-import {setIntervalObj, setCheckBoxObj} from '../../redux/actions/checkBoxParam'
+import {setIntervalObj, setCheckBoxObj, setCheckBoxItem} from '../../redux/actions/checkBoxParam'
 import { connect } from 'react-redux'
 
-const OptionsBlock = ({isDaily, setIntervalObj, setCheckBoxObj, checkBoxObj}) => {
+const OptionsBlock = ({isDaily, setIntervalObj, setCheckBoxObj, checkBoxObj, setCheckBoxItem}) => {
     const [startDay, setStartDay] = useState();
     const [startMonth, setStartMonth] = useState();
     const [startYear, setStartYear] = useState();
@@ -15,7 +15,7 @@ const OptionsBlock = ({isDaily, setIntervalObj, setCheckBoxObj, checkBoxObj}) =>
     const [endMonth, setEndMonth] = useState();
     const [endYear, setEndYear] = useState();
     const [endHour, setEndHour] = useState();
-    let obj = new Object();
+    
 
     useEffect(() => {
         let obj = {
@@ -26,10 +26,12 @@ const OptionsBlock = ({isDaily, setIntervalObj, setCheckBoxObj, checkBoxObj}) =>
         // console.log(checkBoxObj)
     }, [startDay, startMonth, startYear, startHour, endDay, endHour, endMonth, endYear])
 
-    useEffect(() =>{
+    useEffect(() => {
+        let obj = new Object();
         for(let i = 0; i < checkboxArr.length; i++) {
             obj[i] = false
         }
+        setCheckBoxObj(obj)
     }, [])
     
     const checkboxArr = [
@@ -48,9 +50,9 @@ const OptionsBlock = ({isDaily, setIntervalObj, setCheckBoxObj, checkBoxObj}) =>
     
 
     const addCheckBoxObj = (value, index) => {
-        obj[index] = value;
-        console.log(obj)
-        setCheckBoxObj(obj)
+        // console.log(checkBoxObj)
+        setCheckBoxItem(index, value)
+        
     }
 
 
@@ -91,7 +93,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     setIntervalObj,
-    setCheckBoxObj
+    setCheckBoxObj,
+    setCheckBoxItem
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(OptionsBlock)
