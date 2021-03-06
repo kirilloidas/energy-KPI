@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import './Input.scss'
 import { actionLogin, actionPass } from '../../redux/actions/auth'
 
-const Input = (props) => {
+const InputAuth = (props) => {
 
     const onChangeHandler = (event) => {
         switch (props.name) {
@@ -37,7 +37,7 @@ const Input = (props) => {
             <p className="form-par">
                 {whichInput()}
                 <input type="text" placeholder={props.name}
-                    onChange={onChangeHandler}
+                    onChange={(e) => {onChangeHandler(e); console.log(e.target.value)}}
                     onFocus={onFocusHandler} 
                     required />
             </p>
@@ -64,4 +64,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input)
+export default connect(mapStateToProps, mapDispatchToProps)(InputAuth)
