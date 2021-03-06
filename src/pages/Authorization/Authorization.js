@@ -1,7 +1,7 @@
 import React from 'react'
 import './Authorization.scss'
 import Button from '../../components/button/Button'
-import Input from '../../components/input/Input'
+import InputAuth from '../../components/input/InputAuth'
 import ReactIsCapsLockActive from '@matsun/reactiscapslockactive'
 import Timer from '../../components/timer/Timer'
 import CapsBlock from '../../components/capsBlock/CapsBlock'
@@ -14,10 +14,10 @@ const Authorization = () => {
             <form action="/authorization" method="POST">
                 <fieldset className="clearfix">
                     <Timer />
-                    <Input 
+                    <InputAuth 
                         name = "Логін"
                     />
-                    <Input 
+                    <InputAuth 
                         name = "Пароль"
                     />
                     <ReactIsCapsLockActive>

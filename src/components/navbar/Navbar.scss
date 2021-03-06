@@ -3,7 +3,7 @@
   right: 0;
   width: 70px;
   /* height: 100%; */
-  height: 500px;
+  // height: 500px;
   background: #0e0f12;
   z-index: 2;
 
@@ -80,9 +80,6 @@
     span{
       width: 45px;
       height: 45px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
 
       path{
         fill: #101820;
